@@ -16,7 +16,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        inputOperandValues = [initialValue]
         isOperatorEntered = false
         currentValueLable.text = initialValue
     }
@@ -57,8 +56,8 @@ class ViewController: UIViewController {
                 return
             }
         } else {
-            if (inputButtonTitle == "0" && inputOperandValues.isEmpty) ||
-               (inputButtonTitle == "00" && inputOperandValues.isEmpty) { return }
+            if (inputButtonTitle == "0" && inputOperandValues.first == "0") ||
+               (inputButtonTitle == "00" && inputOperandValues.first == "0") { return }
         }
         inputOperandValues.append(inputButtonTitle)
         addcommaOperand = inputOperandValues.joined().insertComma()        
@@ -110,7 +109,7 @@ class ViewController: UIViewController {
     }
     
     private func resetCurrentInputOperand() {
-        inputOperandValues = [initialValue]
+        inputOperandValues = []
         currentValueLable.text = initialValue
     }
     
@@ -139,7 +138,7 @@ class ViewController: UIViewController {
     
     @IBAction private func hitEqualButton(_ sender: UIButton) {
         addOperandToCalculateTarget()
-        guard calculateTarget != [initialValue] else {
+        guard calculateTarget != [] else {
                   resetCurrentInputOperand()
               return
         }
