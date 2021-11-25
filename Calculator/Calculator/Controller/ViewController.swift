@@ -39,8 +39,7 @@ class ViewController: UIViewController {
     }
     
     private func removeStackViewContents() {
-        formulaStackView.arrangedSubviews.forEach({ (view: UIView) -> Void in view.removeFromSuperview()
-        })
+        formulaStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
     }
     
     @IBAction private func hitOperandButton(_ sender: UIButton) {
