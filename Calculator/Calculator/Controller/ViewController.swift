@@ -4,8 +4,8 @@ class ViewController: UIViewController {
     
     @IBOutlet var fomulaScrollView: UIScrollView!
     @IBOutlet var fomulaStackView: UIStackView!
-    @IBOutlet var currentOperatorLable: UILabel!
-    @IBOutlet var currentValueLable: UILabel!
+    @IBOutlet var currentOperatorLabel: UILabel!
+    @IBOutlet var currentValueLabel: UILabel!
     
     private let initialValue = "0"
     private var calculateTarget: [String] = []
@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         isOperatorEntered = false
-        currentValueLable.text = initialValue
+        currentValueLabel.text = initialValue
     }
     
     private func addToFomulaHistory() {
@@ -26,11 +26,11 @@ class ViewController: UIViewController {
         stackView.axis = .horizontal
         
         let opertatorView = UILabel()
-        opertatorView.text = currentOperatorLable.text
+        opertatorView.text = currentOperatorLabel.text
         opertatorView.textColor = .white
         
         let operandView = UILabel()
-        operandView.text = currentValueLable.text
+        operandView.text = currentValueLabel.text
         operandView.textColor = .white
         
         stackView.addArrangedSubview(opertatorView)
@@ -63,9 +63,9 @@ class ViewController: UIViewController {
         addcommaOperand = inputOperandValues.joined().insertComma()        
 
         if signIsPositive {
-            currentValueLable.text = addcommaOperand
+            currentValueLabel.text = addcommaOperand
         } else {
-            currentValueLable.text = "-" + addcommaOperand
+            currentValueLabel.text = "-" + addcommaOperand
         }
         isOperatorEntered = false
     }
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
             calculateTarget.append("-" + inputOperandValues.joined())
         }
         
-        if currentOperatorLable.text != "" || currentValueLable.text != initialValue {
+        if currentOperatorLabel.text != "" || currentValueLabel.text != initialValue {
             addToFomulaHistory()
             fomulaScrollView.scrollViewToBottom()
         }
@@ -99,18 +99,18 @@ class ViewController: UIViewController {
             calculateTarget.append(inputButtonTitle)
             isOperatorEntered = true
         }
-        currentOperatorLable.text = inputButtonTitle
+        currentOperatorLabel.text = inputButtonTitle
     }
     
     func resetToInitialState() {
         resetCurrentInputOperand()
         calculateTarget.removeAll()
-        currentOperatorLable.text = ""
+        currentOperatorLabel.text = ""
     }
     
     private func resetCurrentInputOperand() {
         inputOperandValues = []
-        currentValueLable.text = initialValue
+        currentValueLabel.text = initialValue
     }
     
     @IBAction private func hitACButton(_ sender: UIButton) {
@@ -120,19 +120,19 @@ class ViewController: UIViewController {
     
     @IBAction private func hitCEButton(_ sender: UIButton) {
         resetCurrentInputOperand()
-        currentValueLable.text = initialValue
+        currentValueLabel.text = initialValue
     }
     
     @IBAction private func hitCodeConversionButton(_ sender: UIButton) {
-        guard currentValueLable.text != initialValue else {
+        guard currentValueLabel.text != initialValue else {
             return
         }
-        guard let currentOperand = currentValueLable.text,
+        guard let currentOperand = currentValueLabel.text,
               let doubleTypeOperand = Double(currentOperand) else {
                   return
               }
         signIsPositive = !signIsPositive
-        currentValueLable.text = String(doubleTypeOperand * -1)
+        currentValueLabel.text = String(doubleTypeOperand * -1)
     }
 
     
@@ -147,10 +147,10 @@ class ViewController: UIViewController {
         resetCurrentInputOperand()
         if doubleTypeResult.isNaN {
             resetToInitialState()
-            currentValueLable.text = "NaN"
+            currentValueLabel.text = "NaN"
         } else {
             resetToInitialState()
-            currentValueLable.text = String(doubleTypeResult).insertComma()
+            currentValueLabel.text = String(doubleTypeResult).insertComma()
         }
         isCalculated = true
     }

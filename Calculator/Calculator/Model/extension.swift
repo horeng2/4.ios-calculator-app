@@ -24,7 +24,20 @@ extension String {
         guard let integerWithComma = numberFormatter.string(from: NSNumber(value: dobleTypeInteger)) else {
             return ""
         }
-
+        
+        let decimal = splitByDecimalPoint[1]
+        
+        if self.contains(".") {
+            
+        } else {
+            
+        
+        
+        }
+        
+        
+        
+print(splitByDecimalPoint)
         let valueWithComma: String
         if self.last == "." {
             valueWithComma = integerWithComma + "."
