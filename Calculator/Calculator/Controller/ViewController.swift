@@ -16,7 +16,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isOperatorEntered = false
         currentValueLabel.text = initialValue
     }
     
