@@ -19,29 +19,6 @@ class ViewController: UIViewController {
         currentValueLabel.text = initialValue
     }
     
-    private func addToFomulaHistory() {
-        let stackView = UIStackView()
-        stackView.spacing = 8.0
-        stackView.axis = .horizontal
-        
-        let operatorView = UILabel()
-        operatorView.text = currentOperatorLabel.text
-        operatorView.textColor = .white
-        
-        let operandView = UILabel()
-        operandView.text = currentValueLabel.text
-        operandView.textColor = .white
-        
-        stackView.addArrangedSubview(operatorView)
-        stackView.addArrangedSubview(operandView)
-        
-        formulaStackView.addArrangedSubview(stackView)
-    }
-    
-    private func removeStackViewContents() {
-        formulaStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-    }
-    
     @IBAction private func hitOperandButton(_ sender: UIButton) {
         guard let inputButtonTitle = sender.titleLabel?.text,
                   temporaryOperandValues.count < 20 else {
@@ -68,22 +45,6 @@ class ViewController: UIViewController {
         isOperatorEntered = false
     }
     
-    private func addOperandToCalculateTarget() {
-        if signIsPositive {
-            calculaterTarget.append(temporaryOperandValues.joined())
-        } else {
-            calculaterTarget.append("-" + temporaryOperandValues.joined())
-        }
-        
-        if currentOperatorLabel.text != "" || currentValueLabel.text != initialValue {
-            addToFomulaHistory()
-            formulaScrollView.scrollViewToBottom()
-        }
-        resetTemporaryOperandValues()
-        isCalculated = false
-        signIsPositive = true
-    }
-    
     @IBAction private func hitOperatorButton(_ sender: UIButton) {
         guard let inputButtonTitle = sender.titleLabel?.text else {
             return
@@ -98,17 +59,6 @@ class ViewController: UIViewController {
             isOperatorEntered = true
         }
         currentOperatorLabel.text = inputButtonTitle
-    }
-    
-    func resetToInitialState() {
-        resetTemporaryOperandValues()
-        calculaterTarget.removeAll()
-        currentOperatorLabel.text = ""
-    }
-    
-    private func resetTemporaryOperandValues() {
-        temporaryOperandValues.removeAll()
-        currentValueLabel.text = initialValue
     }
     
     @IBAction private func hitACButton(_ sender: UIButton) {
@@ -133,10 +83,9 @@ class ViewController: UIViewController {
         currentValueLabel.text = String(doubleTypeOperand * -1)
     }
 
-    
     @IBAction private func hitEqualButton(_ sender: UIButton) {
         guard !calculaterTarget.isEmpty else {
-            resetTemporaryOperandValues()
+               resetTemporaryOperandValues()
             return
         }
         addOperandToCalculateTarget()
@@ -154,6 +103,56 @@ class ViewController: UIViewController {
             currentValueLabel.text = (intergerAndDecimal.last == "0" ? intergerAndDecimal.first : insertedCommaResult)
         }
         isCalculated = true
+    }
+    
+    private func addToFomulaHistory() {
+        let stackView = UIStackView()
+        stackView.spacing = 8.0
+        stackView.axis = .horizontal
+        
+        let operatorView = UILabel()
+        operatorView.text = currentOperatorLabel.text
+        operatorView.textColor = .white
+        
+        let operandView = UILabel()
+        operandView.text = currentValueLabel.text
+        operandView.textColor = .white
+        
+        stackView.addArrangedSubview(operatorView)
+        stackView.addArrangedSubview(operandView)
+        
+        formulaStackView.addArrangedSubview(stackView)
+    }
+    
+    private func removeStackViewContents() {
+        formulaStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+    }
+    
+    private func addOperandToCalculateTarget() {
+        if signIsPositive {
+            calculaterTarget.append(temporaryOperandValues.joined())
+        } else {
+            calculaterTarget.append("-" + temporaryOperandValues.joined())
+        }
+        
+        if currentOperatorLabel.text != "" || currentValueLabel.text != initialValue {
+            addToFomulaHistory()
+            formulaScrollView.scrollViewToBottom()
+        }
+        resetTemporaryOperandValues()
+        isCalculated = false
+        signIsPositive = true
+    }
+    
+    func resetToInitialState() {
+        resetTemporaryOperandValues()
+        calculaterTarget.removeAll()
+        currentOperatorLabel.text = ""
+    }
+    
+    private func resetTemporaryOperandValues() {
+        temporaryOperandValues.removeAll()
+        currentValueLabel.text = initialValue
     }
 }
 
