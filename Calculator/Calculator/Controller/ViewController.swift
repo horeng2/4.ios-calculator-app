@@ -135,14 +135,14 @@ class ViewController: UIViewController {
 
     
     @IBAction private func hitEqualButton(_ sender: UIButton) {
-        addOperandToCalculateTarget()
         guard !calculaterTarget.isEmpty else {
-                  resetTemporaryOperandValues()
-              return
+            resetTemporaryOperandValues()
+            return
         }
+        addOperandToCalculateTarget()
         let calculator = ExpressionParser.self
         let doubleTypeResult = calculator.parse(from: calculaterTarget.joined()).result()
-        resetTemporaryOperandValues()
+        
         if doubleTypeResult.isNaN {
             resetToInitialState()
             currentValueLabel.text = "NaN"
