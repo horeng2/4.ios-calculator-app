@@ -107,7 +107,7 @@ class ViewController: UIViewController {
     }
     
     private func resetCurrentInputOperand() {
-        temporaryOperandValues = []
+        temporaryOperandValues.removeAll()
         currentValueLabel.text = initialValue
     }
     
@@ -136,7 +136,7 @@ class ViewController: UIViewController {
     
     @IBAction private func hitEqualButton(_ sender: UIButton) {
         addOperandToCalculateTarget()
-        guard calculaterTarget != [] else {
+        guard !calculaterTarget.isEmpty else {
                   resetCurrentInputOperand()
               return
         }
