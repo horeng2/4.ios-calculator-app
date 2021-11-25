@@ -51,4 +51,15 @@ print(splitByDecimalPoint)
         
         return valueWithComma
     }
+    
+    func hasDecimalPoint() -> Bool {
+        self.contains(".")
+    }
+}
+
+extension Array {
+    func hasDecimalPoint() -> Bool {
+        (self.filter { ($0 as? String) == "."
+        }).count == 0 ? false : true
+    }
 }

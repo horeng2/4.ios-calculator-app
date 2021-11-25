@@ -49,7 +49,7 @@ class ViewController: UIViewController {
         }
         let addcommaOperand: String
         
-        if temporaryOperandValues.contains(".") {
+        if temporaryOperandValues.hasDecimalPoint() {
             guard inputButtonTitle != "." else {
                 return
             }
