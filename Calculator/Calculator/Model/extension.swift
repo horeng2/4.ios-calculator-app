@@ -14,41 +14,22 @@ extension String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         numberFormatter.roundingMode = .halfUp
-        numberFormatter.minimumFractionDigits = 0
-        numberFormatter.maximumSignificantDigits = 20
         
         let splitByDecimalPoint = self.split(with: ".")
-        guard let dobleTypeInteger = Double(splitByDecimalPoint[0]) else {
+        guard let dobleTypeInteger = Double(splitByDecimalPoint[0]),
+              let integerWithComma = numberFormatter.string(from: NSNumber(value: dobleTypeInteger)) else {
             return ""
         }
-        guard let integerWithComma = numberFormatter.string(from: NSNumber(value: dobleTypeInteger)) else {
-            return ""
-        }
         
-        let decimal = splitByDecimalPoint[1]
-        
-        if self.contains(".") {
-            
-        } else {
-            
-        
-        
-        }
-        
-        
-        
-print(splitByDecimalPoint)
         let valueWithComma: String
         if self.last == "." {
             valueWithComma = integerWithComma + "."
-        } else if self.contains(".") && splitByDecimalPoint.last != "0" {
+        } else if self.contains(".") && splitByDecimalPoint.count == 2 {
             let decimalValue = splitByDecimalPoint[1]
-              valueWithComma = integerWithComma + "." + decimalValue
+                valueWithComma = integerWithComma + "." + decimalValue
         } else {
             valueWithComma = integerWithComma
         }
-
-        
         return valueWithComma
     }
     
