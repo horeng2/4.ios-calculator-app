@@ -79,7 +79,7 @@ class ViewController: UIViewController {
             addToFomulaHistory()
             formulaScrollView.scrollViewToBottom()
         }
-        
+        resetTemporaryOperandValues()
         isCalculated = false
         signIsPositive = true
     }
@@ -89,7 +89,7 @@ class ViewController: UIViewController {
             return
         }
         addOperandToCalculateTarget()
-        resetCurrentInputOperand()
+        resetTemporaryOperandValues()
         if isOperatorEntered {
             calculaterTarget.removeLast()
             calculaterTarget.append(inputButtonTitle)
@@ -101,12 +101,12 @@ class ViewController: UIViewController {
     }
     
     func resetToInitialState() {
-        resetCurrentInputOperand()
+        resetTemporaryOperandValues()
         calculaterTarget.removeAll()
         currentOperatorLabel.text = ""
     }
     
-    private func resetCurrentInputOperand() {
+    private func resetTemporaryOperandValues() {
         temporaryOperandValues.removeAll()
         currentValueLabel.text = initialValue
     }
@@ -117,7 +117,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction private func hitCEButton(_ sender: UIButton) {
-        resetCurrentInputOperand()
+        resetTemporaryOperandValues()
         currentValueLabel.text = initialValue
     }
     
@@ -137,12 +137,12 @@ class ViewController: UIViewController {
     @IBAction private func hitEqualButton(_ sender: UIButton) {
         addOperandToCalculateTarget()
         guard !calculaterTarget.isEmpty else {
-                  resetCurrentInputOperand()
+                  resetTemporaryOperandValues()
               return
         }
         let calculator = ExpressionParser.self
         let doubleTypeResult = calculator.parse(from: calculaterTarget.joined()).result()
-        resetCurrentInputOperand()
+        resetTemporaryOperandValues()
         if doubleTypeResult.isNaN {
             resetToInitialState()
             currentValueLabel.text = "NaN"
